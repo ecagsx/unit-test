@@ -10,7 +10,19 @@ import org.junit.Test;
 
 public class UT_SavingsAccount {
   private SavingsAccount account;
-
+  
+  @Before // Executed before each @Test method.  Allocate/initialize resources.
+  public void setUp()
+      throws Exception {
+    account = new SavingsAccount(100);
+  }
+  
+  @After // Executed after each @Test method.  Dealloate/"Reset" test environment.
+  public void tearDown()
+      throws Exception {
+    account = null;
+  }
+  
   @Test
   public void accrueInterest() {
     assertEquals(100, account.balance(), 0);
@@ -42,13 +54,7 @@ public class UT_SavingsAccount {
 
     // assertTrue(90 == account.balance());  // Shouldn't be able to override withdraw method by passing negative input to deposit
   }
-
-  @After // Executed after each @Test method.  Dealloate/"Reset" test environment.
-  public void tearDown()
-      throws Exception {
-    account = null;
-  }
-
+ 
   @Test
   public void transfer()
       throws InsufficientFundsException {
@@ -66,9 +72,4 @@ public class UT_SavingsAccount {
     account.transfer(101, sourceAccount);
   }
 
-  @Before // Executed before each @Test method.  Allocate/initialize resources.
-  public void setUp()
-      throws Exception {
-    account = new SavingsAccount(100);
-  }
 }
